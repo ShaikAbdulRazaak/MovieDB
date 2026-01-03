@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.util.Properties
 
@@ -75,8 +74,8 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.retrofit)
     implementation(libs.kotlinx.serialization.json)
-    implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.11.0")
-    implementation("com.squareup.okhttp3:okhttp:5.3.0")
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.okhttp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
