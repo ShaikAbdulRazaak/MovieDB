@@ -13,7 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
 
-private const val BASE_URL = "https://api.themoviedb.org/3/"
+const val BASE_URL = "https://api.themoviedb.org/3/"
 
 @InstallIn(SingletonComponent::class)
 @Module

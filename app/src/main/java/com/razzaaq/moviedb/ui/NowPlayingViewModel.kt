@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.razzaaq.moviedb.api.ApiService
 import com.razzaaq.moviedb.api.dto.NowPlaying
+import com.razzaaq.moviedb.api.dto.TMDBConfiguration
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,10 +15,12 @@ class NowPlayingViewModel @Inject constructor(apiService: ApiService) : ViewMode
 
     val nowPlayingFlow = MutableStateFlow(NowPlaying())
 
+    val configurationData = MutableStateFlow(TMDBConfiguration())
+
     init {
         viewModelScope.launch {
-            val nowPlayingMovies = async { apiService.getNowPlayingMovies() }
-            nowPlayingFlow.value = nowPlayingMovies.await()
+            configurationData.value = apiService.getTMDBConfiguration()
+            nowPlayingFlow.value = apiService.getNowPlayingMovies()
         }
     }
 
