@@ -83,7 +83,7 @@ dependencies {
     ksp(libs.kotlin.metadata.jvm)
     implementation(libs.coil3.coil.compose)
     implementation(libs.coil.network.okhttp)
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.10.0")
+    implementation(libs.androidx.compose.ui.text.google.fonts)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
