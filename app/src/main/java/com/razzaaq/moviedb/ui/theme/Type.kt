@@ -21,12 +21,27 @@ val MontserratFont = GoogleFont(name = "Montserrat")
 
 val josefinSansFont = GoogleFont(name = "Josefin Sans")
 
+val ubuntu = GoogleFont(name = "Ubuntu")
+
+val didactGothic = GoogleFont(name = "Didact Gothic")
+
 val MontserratFontFamily = FontFamily(
     Font(googleFont = MontserratFont, fontProvider = provider),
     Font(googleFont = MontserratFont, fontProvider = provider, weight = FontWeight.Light),
     Font(googleFont = MontserratFont, fontProvider = provider, weight = FontWeight.Medium),
     Font(googleFont = MontserratFont, fontProvider = provider, weight = FontWeight.SemiBold),
 )
+
+val ubuntuFontFamily = FontFamily(
+    Font(googleFont = ubuntu, fontProvider = provider),
+    Font(googleFont = ubuntu, fontProvider = provider, weight = FontWeight.Light),
+    Font(googleFont = ubuntu, fontProvider = provider, weight = FontWeight.Medium),
+    Font(googleFont = ubuntu, fontProvider = provider, weight = FontWeight.SemiBold)
+)
+
+val didactGothicFontFamily = FontFamily(Font(googleFont = didactGothic, fontProvider = provider),    Font(googleFont = ubuntu, fontProvider = provider, weight = FontWeight.Light),
+    Font(googleFont = didactGothic, fontProvider = provider, weight = FontWeight.Medium),
+    Font(googleFont = didactGothic, fontProvider = provider, weight = FontWeight.SemiBold))
 
 val JosefinSansFontFamily = FontFamily(
     Font(googleFont = josefinSansFont, fontProvider = provider),
