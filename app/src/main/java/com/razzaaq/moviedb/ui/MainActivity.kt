@@ -30,8 +30,8 @@ class MainActivity : ComponentActivity() {
                         viewmodel.configurationData.collectAsStateWithLifecycle().value
                     NowPlayingScreen(
                         modifier = Modifier.padding(innerPadding),
-                        state,
-                        configuration
+                        state = state,
+                        configuration = configuration
                     )
                 }
             }
