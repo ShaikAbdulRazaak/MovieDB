@@ -3,7 +3,6 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
@@ -12,9 +11,7 @@ plugins {
 
 android {
     namespace = "com.razzaaq.moviedb"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.razzaaq.moviedb"
@@ -31,8 +28,8 @@ android {
         }
         buildConfigField(
             "String",
-            name = "apiKey",
-            value = properties.getProperty("apiKey")
+            "apiKey",
+            properties.getProperty("apiKey") ?: ""
         )
     }
 
@@ -45,23 +42,27 @@ android {
             )
         }
     }
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(22)
-        }
-    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_22
         targetCompatibility = JavaVersion.VERSION_22
     }
-    kotlin {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_22)
-        }
-    }
+
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_22)
     }
 }
 
@@ -84,6 +85,10 @@ dependencies {
     implementation(libs.coil3.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.compose.ui.text.google.fonts)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+    implementation(libs.androidx.material3.adaptive.navigation3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
