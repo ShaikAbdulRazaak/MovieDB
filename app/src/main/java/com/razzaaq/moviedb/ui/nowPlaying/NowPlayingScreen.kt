@@ -13,16 +13,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.NowPlayingDto
-import com.razzaaq.moviedb.api.dto.TMDBConfiguration
+import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Image
+import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Movie
 import com.razzaaq.moviedb.ui.theme.ubuntuFontFamily
 
 @Composable
 fun NowPlayingScreen(
     modifier: Modifier = Modifier,
-    nowPlayingDto: NowPlayingDto,
-    configuration: TMDBConfiguration,
-    onCardClick: (result: NowPlayingDto.Result) -> Unit
+    movies: List<Movie> = listOf(),
+    posterImage: Image,
+    onCardClick: (movieId: Int) -> Unit
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
@@ -32,15 +32,16 @@ fun NowPlayingScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 24.dp)
     ) {
-        items(nowPlayingDto.results) {
+        items(movies) {
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
                 modifier = Modifier.padding(8.dp),
-                onClick = { onCardClick(it) }
+                onClick = { onCardClick(it.id) }
             ) {
                 PosterImage(
                     imagePath = it.posterPath,
-                    configuration = configuration
+                    baseUrl = posterImage.url,
+                    imageSize = posterImage.imageSize
                 )
                 Text(
                     text = it.title,

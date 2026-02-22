@@ -1,7 +1,7 @@
 package com.razzaaq.moviedb.api
 
 import com.razzaaq.moviedb.api.dto.NowPlayingDto
-import com.razzaaq.moviedb.api.dto.TMDBConfiguration
+import com.razzaaq.moviedb.api.dto.ConfigurationDetail
 import retrofit2.http.GET
 
 interface ApiService {
@@ -9,5 +9,5 @@ interface ApiService {
     suspend fun getNowPlayingMovies(): NowPlayingDto
 
     @GET("configuration")
-    suspend fun getTMDBConfiguration(): TMDBConfiguration
+    suspend fun getTMDBConfiguration(): ConfigurationDetail
 }

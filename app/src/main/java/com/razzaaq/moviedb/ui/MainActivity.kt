@@ -46,10 +46,10 @@ class MainActivity : ComponentActivity() {
                                 is NowPlaying -> NavEntry(key = key) {
                                     val uiState by viewmodel.uiState.collectAsState()
                                     NowPlayingScreen(
-                                        nowPlayingDto = uiState.nowPlaying,
-                                        configuration = uiState.configuration,
+                                        movies = uiState.nowPlaying,
+                                        posterImage = uiState.posterImage,
                                         onCardClick = {
-                                            backStack.add(NowPlayingDetail(it.id.toString()))
+                                            backStack.add(NowPlayingDetail(it))
                                         }
                                     )
                                 }

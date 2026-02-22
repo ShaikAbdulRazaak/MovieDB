@@ -3,8 +3,8 @@ package com.razzaaq.moviedb.ui.nowPlaying.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.razzaaq.moviedb.api.ApiService
+import com.razzaaq.moviedb.api.dto.ConfigurationDetail
 import com.razzaaq.moviedb.api.dto.NowPlayingDto
-import com.razzaaq.moviedb.api.dto.TMDBConfiguration
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,10 +18,13 @@ import javax.inject.Inject
 class NowPlayingViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
 
     private val nowPlayingFlow = MutableStateFlow(NowPlayingDto())
-    private val configurationData = MutableStateFlow(TMDBConfiguration())
+    private val configurationData = MutableStateFlow(ConfigurationDetail())
 
     val uiState = combine(nowPlayingFlow, configurationData) { nowPlaying, configuration ->
-        NowPlayingUiState(nowPlaying, configuration)
+        NowPlayingUiState(
+            nowPlaying.results.map { it.toMovie() },
+            configuration.toImage()
+        )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
@@ -39,7 +42,17 @@ class NowPlayingViewModel @Inject constructor(private val apiService: ApiService
     }
 }
 
-data class NowPlayingUiState(
-    val nowPlaying: NowPlayingDto = NowPlayingDto(),
-    val configuration: TMDBConfiguration = TMDBConfiguration()
+private fun NowPlayingDto.Result.toMovie() = Movie(id = id, title = title, posterPath = posterPath)
+private fun ConfigurationDetail.toImage(): Image = Image(
+    url = images.secureBaseUrl,
+    imageSize = images.posterSizes.lastOrNull() ?: ""
 )
+
+data class NowPlayingUiState(
+    val nowPlaying: List<Movie> = listOf<Movie>(),
+    val posterImage: Image = Image(),
+)
+
+data class Image(val url: String = "", val imageSize: String = "")
+
+data class Movie(val id: Int = 0, val title: String = "", val posterPath: String = "")
