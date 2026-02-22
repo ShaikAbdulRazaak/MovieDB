@@ -20,7 +20,7 @@ import com.razzaaq.moviedb.ui.theme.ubuntuFontFamily
 @Composable
 fun NowPlayingScreen(
     modifier: Modifier = Modifier,
-    state: NowPlayingDto,
+    nowPlayingDto: NowPlayingDto,
     configuration: TMDBConfiguration,
     onCardClick: (result: NowPlayingDto.Result) -> Unit
 ) {
@@ -32,7 +32,7 @@ fun NowPlayingScreen(
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 24.dp)
     ) {
-        items(state.results) {
+        items(nowPlayingDto.results) {
             ElevatedCard(
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
                 modifier = Modifier.padding(8.dp),

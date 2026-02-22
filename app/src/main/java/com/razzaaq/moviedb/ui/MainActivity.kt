@@ -44,11 +44,10 @@ class MainActivity : ComponentActivity() {
                         entryProvider = { key ->
                             when (key) {
                                 is NowPlaying -> NavEntry(key = key) {
-                                    val state by viewmodel.nowPlayingFlow.collectAsState()
-                                    val configuration by viewmodel.configurationData.collectAsState()
+                                    val uiState by viewmodel.uiState.collectAsState()
                                     NowPlayingScreen(
-                                        state = state,
-                                        configuration = configuration,
+                                        nowPlayingDto = uiState.nowPlaying,
+                                        configuration = uiState.configuration,
                                         onCardClick = {
                                             backStack.add(NowPlayingDetail(it.id.toString()))
                                         }
