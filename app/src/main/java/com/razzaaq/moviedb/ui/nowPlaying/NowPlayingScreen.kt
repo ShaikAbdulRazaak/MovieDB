@@ -11,7 +11,6 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Image
 import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Movie
@@ -47,7 +46,6 @@ fun NowPlayingScreen(
                 Text(
                     text = it.title,
                     fontFamily = ubuntuFontFamily,
-                    color = Color.Black,
                     modifier = Modifier.padding(8.dp)
                 )
             }
