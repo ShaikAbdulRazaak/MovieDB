@@ -39,6 +39,7 @@ fun NowPlayingScreen(
                 onClick = { onCardClick(it.id) }
             ) {
                 PosterImage(
+                    modifier = modifier,
                     imagePath = it.posterPath,
                     baseUrl = posterImage.url,
                     imageSize = posterImage.imageSize

@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val viewmodel by viewModels<NowPlayingViewModel>()
+    val nowPlayingViewModel by viewModels<NowPlayingViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -44,19 +44,23 @@ class MainActivity : ComponentActivity() {
                         entryProvider = { key ->
                             when (key) {
                                 is NowPlaying -> NavEntry(key = key) {
-                                    val uiState by viewmodel.uiState.collectAsState()
+                                    val uiState by nowPlayingViewModel.uiState.collectAsState()
                                     NowPlayingScreen(
                                         movies = uiState.nowPlaying,
                                         posterImage = uiState.posterImage,
                                         onCardClick = {
                                             backStack.add(NowPlayingDetail(it))
+                                            nowPlayingViewModel.getMovieDetail(it)
                                         }
                                     )
                                 }
 
                                 is NowPlayingDetail -> NavEntry(key = key) {
-                                    val movieId = key.movieId
-                                    NowPlayingDetailScreen()
+                                    val detailsUiState by nowPlayingViewModel.detailsUiState.collectAsState()
+                                    NowPlayingDetailScreen(
+                                        movieDetail = detailsUiState.nowPlayingDetails,
+                                        posterImage = detailsUiState.posterImage
+                                    )
                                 }
 
                                 else -> error("Unknown route: $key")

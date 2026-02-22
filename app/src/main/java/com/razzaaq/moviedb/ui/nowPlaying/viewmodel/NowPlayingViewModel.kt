@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.razzaaq.moviedb.api.ApiService
 import com.razzaaq.moviedb.api.dto.ConfigurationDetail
+import com.razzaaq.moviedb.api.dto.MovieDetail
 import com.razzaaq.moviedb.api.dto.NowPlayingDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -19,6 +20,7 @@ class NowPlayingViewModel @Inject constructor(private val apiService: ApiService
 
     private val nowPlayingFlow = MutableStateFlow(NowPlayingDto())
     private val configurationData = MutableStateFlow(ConfigurationDetail())
+    private val nowPlayingDetailsFlow = MutableStateFlow(MovieDetail())
 
     val uiState = combine(nowPlayingFlow, configurationData) { nowPlaying, configuration ->
         NowPlayingUiState(
@@ -40,6 +42,23 @@ class NowPlayingViewModel @Inject constructor(private val apiService: ApiService
             nowPlayingFlow.value = nowPlayingDeferred.await()
         }
     }
+
+    fun getMovieDetail(movieId: Int) = viewModelScope.launch {
+        nowPlayingDetailsFlow.value = apiService.getMovieDetail(movieId)
+    }
+
+    val detailsUiState =
+        combine(nowPlayingDetailsFlow, configurationData) { nowPlayingDetails, configuration ->
+            NowPlayingDetailsUiState(
+                nowPlayingDetails,
+                configuration.toImage()
+            )
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = NowPlayingDetailsUiState()
+        )
+
 }
 
 private fun NowPlayingDto.Result.toMovie() = Movie(id = id, title = title, posterPath = posterPath)
@@ -51,6 +70,11 @@ private fun ConfigurationDetail.toImage(): Image = Image(
 data class NowPlayingUiState(
     val nowPlaying: List<Movie> = listOf<Movie>(),
     val posterImage: Image = Image(),
+)
+
+data class NowPlayingDetailsUiState(
+    val nowPlayingDetails: MovieDetail = MovieDetail(),
+    val posterImage: Image = Image()
 )
 
 data class Image(val url: String = "", val imageSize: String = "")
