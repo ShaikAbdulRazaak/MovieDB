@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NowPlaying(
+data class NowPlayingDto(
     @SerialName("dates")
     val dates: Dates = Dates(),
     @SerialName("page")

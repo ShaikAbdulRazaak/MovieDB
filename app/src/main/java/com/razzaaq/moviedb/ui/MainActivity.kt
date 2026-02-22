@@ -8,8 +8,16 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.ui.NavDisplay
+import com.razzaaq.moviedb.ui.nowPlaying.NowPlaying
+import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingDetail
+import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingDetailScreen
 import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingScreen
 import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.NowPlayingViewModel
 import com.razzaaq.moviedb.ui.theme.MovieDBTheme
@@ -25,13 +33,36 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieDBTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val state = viewmodel.nowPlayingFlow.collectAsStateWithLifecycle().value
-                    val configuration =
-                        viewmodel.configurationData.collectAsStateWithLifecycle().value
-                    NowPlayingScreen(
+                    val backStack = remember { mutableStateListOf<Any>(NowPlaying) }
+
+                    NavDisplay(
+                        backStack = backStack,
                         modifier = Modifier.padding(innerPadding),
-                        state = state,
-                        configuration = configuration
+                        onBack = {
+                            backStack.removeLastOrNull()
+                        },
+                        entryProvider = { key ->
+                            when (key) {
+                                is NowPlaying -> NavEntry(key = key) {
+                                    val state by viewmodel.nowPlayingFlow.collectAsState()
+                                    val configuration by viewmodel.configurationData.collectAsState()
+                                    NowPlayingScreen(
+                                        state = state,
+                                        configuration = configuration,
+                                        onCardClick = {
+                                            backStack.add(NowPlayingDetail(it.id.toString()))
+                                        }
+                                    )
+                                }
+
+                                is NowPlayingDetail -> NavEntry(key = key) {
+                                    val movieId = key.movieId
+                                    NowPlayingDetailScreen()
+                                }
+
+                                else -> error("Unknown route: $key")
+                            }
+                        }
                     )
                 }
             }
