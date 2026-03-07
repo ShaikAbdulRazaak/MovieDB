@@ -19,10 +19,10 @@ fun Genre(modifier: Modifier = Modifier, genres: List<MovieDetail.Genre>) {
         Column {
             MovieDetailHeading(
                 title = stringResource(R.string.genre),
-                modifier = modifier.padding(bottom = 8.dp)
+                modifier = modifier
             )
             FlowRow(
-                modifier = modifier,
+                modifier = modifier.padding(top = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {

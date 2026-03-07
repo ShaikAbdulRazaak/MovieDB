@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
+import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
 fun RunTime(modifier: Modifier = Modifier, runTime: Int) {
@@ -31,7 +32,8 @@ fun RunTime(modifier: Modifier = Modifier, runTime: Int) {
                 .joinToString(" ")
             Text(
                 text = formattedTime,
-                modifier = modifier.padding(top = 8.dp)
+                modifier = modifier.padding(top = 8.dp),
+                fontFamily = didactGothicFontFamily
             )
         }
     }
