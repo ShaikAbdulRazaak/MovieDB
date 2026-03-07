@@ -5,11 +5,13 @@ A simple Android application that displays a list of currently playing movies us
 ## Features
 
 - **Now Playing Movies**: Displays a list of currently playing movies in a responsive staggered grid layout.
+- **Movie Details**: Provides a comprehensive view of movie information, including backdrop images, taglines, overviews, and production company logos.
 - **Real-time Data**: Fetches up-to-date information from the TMDB API.
-- **Dynamic Image Loading**: Efficiently loads movie posters with support for different TMDB configurations.
+- **Dynamic Image Loading**: Efficiently loads movie posters and backdrops with support for different TMDB configurations.
 - **Modern UI**: Built entirely with Jetpack Compose and Material 3 for a fluid user experience.
-- **Custom Typography**: Utilizes Google Fonts (Montserrat, Ubuntu, Josefin Sans) for a polished look.
+- **Custom Typography**: Utilizes Google Fonts (Montserrat, Ubuntu, Josefin Sans, Didact Gothic) for a polished look.
 - **Adaptive Navigation**: Implements the latest Navigation 3 library for robust screen transitions.
+- **Localization Ready**: Strings are externalized to `strings.xml` to support future localization.
 
 ## Tech Stack
 
@@ -47,10 +49,16 @@ A simple Android application that displays a list of currently playing movies us
 
 ## Project Structure
 
-- `com.razzaaq.moviedb.api`: Networking layer, Retrofit services, DTOs, and Hilt modules.
-- `com.razzaaq.moviedb.ui`: UI layer including screens, ViewModels, and theme (Material 3, Google Fonts).
+- `com.razzaaq.moviedb.api`: Networking layer, Retrofit services, DTOs (Data Transfer Objects), and Hilt modules.
+- `com.razzaaq.moviedb.ui`: UI layer including screens (Now Playing, Movie Details), ViewModels, and theme (Material 3, Google Fonts).
 - `gradle/libs.versions.toml`: Version catalog for centralized dependency management.
 - `MovieDBApp.kt`: Application entry point and Hilt configuration.
+
+## Recent Updates
+
+- **Screen Refactoring**: Modularized the `NowPlayingDetailScreen` into smaller, reusable composables (`MoviePoster`, `Overview`, `ProductionCompanies`) for better readability and maintainability.
+- **String Resource Integration**: Moved hardcoded UI strings to `strings.xml` to follow Android best practices and enable localization.
+- **Enhanced Detail View**: Added support for displaying production companies and improved the layout of the movie detail header.
 
 ## Troubleshooting
 

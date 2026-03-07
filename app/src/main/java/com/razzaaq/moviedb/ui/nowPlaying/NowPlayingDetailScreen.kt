@@ -17,8 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.api.dto.Image
 import com.razzaaq.moviedb.api.dto.MovieDetail
 import com.razzaaq.moviedb.ui.theme.MontserratFontFamily
@@ -43,7 +45,7 @@ fun NowPlayingDetailScreen(
 @Composable
 private fun Overview(movieDetail: MovieDetail) {
     Text(
-        "Overview",
+        stringResource(R.string.overview),
         modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
         fontFamily = ubuntuFontFamily,
         style = MaterialTheme.typography.bodyLarge,
@@ -106,7 +108,7 @@ private fun ProductionCompanies(
 ) {
     if (movieDetail.productionCompanies.any { it.logoPath.isNotEmpty() }) {
         Text(
-            text = "Production Companies",
+            text = stringResource(R.string.production_companies),
             modifier = Modifier.padding(start = 16.dp, top = 16.dp),
             fontFamily = ubuntuFontFamily,
             style = MaterialTheme.typography.bodyLarge,
