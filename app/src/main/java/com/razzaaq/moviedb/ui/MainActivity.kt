@@ -17,7 +17,7 @@ import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.razzaaq.moviedb.ui.nowPlaying.NowPlaying
 import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingDetail
-import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingDetailScreen
+import com.razzaaq.moviedb.ui.nowPlaying.detailsUi.NowPlayingDetailScreen
 import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingScreen
 import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.NowPlayingViewModel
 import com.razzaaq.moviedb.ui.theme.MovieDBTheme
