@@ -19,7 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.api.dto.Image
@@ -42,6 +45,7 @@ fun NowPlayingDetailScreen(
     ) {
         MoviePoster(movieDetail, posterImage, modifier)
         Overview(movieDetail, modifier)
+        Webpage(movieDetail = movieDetail, modifier = modifier)
         ProductionCompanies(movieDetail, posterImage)
     }
 }
@@ -89,19 +93,21 @@ private fun MoviePoster(
 
 @Composable
 private fun Overview(movieDetail: MovieDetail, modifier: Modifier) {
-    Text(
-        stringResource(R.string.overview),
-        fontFamily = ubuntuFontFamily,
-        style = MaterialTheme.typography.bodyLarge,
-        textDecoration = TextDecoration.Underline,
-        modifier = modifier
-    )
-    Text(
-        text = movieDetail.overview,
-        style = MaterialTheme.typography.bodyMedium,
-        fontFamily = MontserratFontFamily,
-        modifier = modifier
-    )
+    Column {
+        Text(
+            stringResource(R.string.overview),
+            fontFamily = ubuntuFontFamily,
+            style = MaterialTheme.typography.bodyLarge,
+            textDecoration = TextDecoration.Underline,
+            modifier = modifier
+        )
+        Text(
+            text = movieDetail.overview,
+            style = MaterialTheme.typography.bodyMedium,
+            fontFamily = MontserratFontFamily,
+            modifier = modifier
+        )
+    }
 }
 
 
@@ -149,4 +155,26 @@ private fun ProductionCompanies(
             }
         }
     }
+}
+
+@Composable
+fun Webpage(modifier: Modifier = Modifier, movieDetail: MovieDetail) {
+    if (movieDetail.homepage.isNotEmpty())
+        Column {
+            Text(
+                text = stringResource(R.string.homepage),
+                fontFamily = ubuntuFontFamily,
+                style = MaterialTheme.typography.bodyLarge,
+                textDecoration = TextDecoration.Underline,
+                modifier = modifier
+            )
+            Text(
+                buildAnnotatedString {
+                    withLink(
+                        link = LinkAnnotation.Url(movieDetail.homepage)
+                    ) { append(movieDetail.homepage) }
+                },
+                fontFamily = didactGothicFontFamily,
+            )
+        }
 }

@@ -2,4 +2,5 @@
     <string name="app_name">MovieDB</string>
     <string name="overview">Overview</string>
     <string name="production_companies">Production Companies</string>
+    <string name="homepage">HomePage</string>
 </resources>
