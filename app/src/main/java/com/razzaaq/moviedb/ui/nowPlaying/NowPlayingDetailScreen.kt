@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
@@ -34,29 +35,15 @@ fun NowPlayingDetailScreen(
     movieDetail: MovieDetail
 ) {
     Column(
-        modifier.fillMaxSize()
+        modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         MoviePoster(movieDetail, posterImage, modifier)
-        Overview(movieDetail)
+        Overview(movieDetail, modifier)
         ProductionCompanies(movieDetail, posterImage)
     }
-}
-
-@Composable
-private fun Overview(movieDetail: MovieDetail) {
-    Text(
-        stringResource(R.string.overview),
-        modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
-        fontFamily = ubuntuFontFamily,
-        style = MaterialTheme.typography.bodyLarge,
-        textDecoration = TextDecoration.Underline
-    )
-    Text(
-        text = movieDetail.overview,
-        style = MaterialTheme.typography.bodyMedium,
-        fontFamily = MontserratFontFamily,
-        modifier = Modifier.padding(horizontal = 16.dp)
-    )
 }
 
 @Composable
@@ -67,7 +54,6 @@ private fun MoviePoster(
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        modifier = Modifier.padding(8.dp),
     ) {
         Box {
             PosterImage(
@@ -85,12 +71,12 @@ private fun MoviePoster(
                     text = movieDetail.title,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = modifier
-                        .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+                        .padding(horizontal = 16.dp),
                     color = Color.White
                 )
                 if (movieDetail.tagline.isNotEmpty())
                     Text(
-                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                         text = movieDetail.tagline,
                         color = Color.White,
                         style = MaterialTheme.typography.bodySmall,
@@ -102,6 +88,24 @@ private fun MoviePoster(
 }
 
 @Composable
+private fun Overview(movieDetail: MovieDetail, modifier: Modifier) {
+    Text(
+        stringResource(R.string.overview),
+        fontFamily = ubuntuFontFamily,
+        style = MaterialTheme.typography.bodyLarge,
+        textDecoration = TextDecoration.Underline,
+        modifier = modifier
+    )
+    Text(
+        text = movieDetail.overview,
+        style = MaterialTheme.typography.bodyMedium,
+        fontFamily = MontserratFontFamily,
+        modifier = modifier
+    )
+}
+
+
+@Composable
 private fun ProductionCompanies(
     movieDetail: MovieDetail,
     posterImage: Image
@@ -109,29 +113,39 @@ private fun ProductionCompanies(
     if (movieDetail.productionCompanies.any { it.logoPath.isNotEmpty() }) {
         Text(
             text = stringResource(R.string.production_companies),
-            modifier = Modifier.padding(start = 16.dp, top = 16.dp),
             fontFamily = ubuntuFontFamily,
             style = MaterialTheme.typography.bodyLarge,
             textDecoration = TextDecoration.Underline
         )
-        FlowRow(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp)
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            for (productionCompany in movieDetail.productionCompanies) {
-                Column(
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    if (productionCompany.logoPath.isNotEmpty())
+            items(movieDetail.productionCompanies) { productionCompany ->
+                if (productionCompany.logoPath.isNotEmpty())
+                    FlowRow {
                         PosterImage(
                             imagePath = productionCompany.logoPath,
                             baseUrl = posterImage.url,
-                            imageSize = posterImage.imageSize,
-                            modifier = Modifier.size(92.dp)
+                            imageSize = "w300",
+                            modifier = Modifier
+                                .align(Alignment.CenterVertically)
+                                .padding(end = 8.dp)
                         )
-                }
+                        Text(
+                            text = productionCompany.name,
+                            modifier = Modifier
+                                .padding(horizontal = 4.dp)
+                                .align(Alignment.CenterVertically),
+                            fontFamily = didactGothicFontFamily
+                        )
+                        Text(
+                            text = productionCompany.originCountry,
+                            fontFamily = didactGothicFontFamily,
+                            modifier = Modifier.align(Alignment.CenterVertically)
+                        )
+                    }
+
             }
         }
     }
