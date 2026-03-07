@@ -1,7 +1,8 @@
 package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -14,14 +15,21 @@ fun NowPlayingDetailScreen(
     posterImage: Image,
     movieDetail: MovieDetail
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        MoviePoster(
-            title = movieDetail.title,
-            backdropPath = movieDetail.backdropPath,
-            tagline = movieDetail.tagline,
-            posterImage = posterImage,
-            modifier = modifier
-        )
-        MovieDetailItems(modifier, movieDetail, posterImage)
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.fillMaxSize()
+    ) {
+        item {
+            MoviePoster(
+                title = movieDetail.title,
+                backdropPath = movieDetail.backdropPath,
+                tagline = movieDetail.tagline,
+                posterImage = posterImage,
+                modifier = modifier
+            )
+        }
+        item {
+            MovieDetailItems(modifier, movieDetail, posterImage)
+        }
     }
 }

@@ -4,4 +4,12 @@
     <string name="production_companies">Production Companies</string>
     <string name="homepage">HomePage</string>
     <string name="genre">Genre</string>
+    <plurals name="runtime_hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="runtime_minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
 </resources>

@@ -30,6 +30,10 @@ fun MovieDetailItems(
             modifier = modifier,
             genres = movieDetail.genres
         )
+        RunTime(
+            modifier = modifier,
+            runTime = movieDetail.runtime
+        )
         Webpage(
             homepage = movieDetail.homepage,
             modifier = modifier,
