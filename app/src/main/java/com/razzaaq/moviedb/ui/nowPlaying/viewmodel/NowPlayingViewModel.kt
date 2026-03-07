@@ -4,8 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.razzaaq.moviedb.api.ApiService
 import com.razzaaq.moviedb.api.dto.ConfigurationDetail
+import com.razzaaq.moviedb.api.dto.Image
+import com.razzaaq.moviedb.api.dto.Movie
 import com.razzaaq.moviedb.api.dto.MovieDetail
+import com.razzaaq.moviedb.api.dto.NowPlayingDetailsUiState
 import com.razzaaq.moviedb.api.dto.NowPlayingDto
+import com.razzaaq.moviedb.api.dto.NowPlayingUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,17 +70,3 @@ private fun ConfigurationDetail.toImage(): Image = Image(
     url = images.secureBaseUrl,
     imageSize = images.posterSizes.lastOrNull() ?: ""
 )
-
-data class NowPlayingUiState(
-    val nowPlaying: List<Movie> = listOf<Movie>(),
-    val posterImage: Image = Image(),
-)
-
-data class NowPlayingDetailsUiState(
-    val nowPlayingDetails: MovieDetail = MovieDetail(),
-    val posterImage: Image = Image()
-)
-
-data class Image(val url: String = "", val imageSize: String = "")
-
-data class Movie(val id: Int = 0, val title: String = "", val posterPath: String = "")

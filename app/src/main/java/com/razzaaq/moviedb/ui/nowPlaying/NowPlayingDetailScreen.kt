@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.api.dto.MovieDetail
-import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Image
+import com.razzaaq.moviedb.api.dto.Image
 import com.razzaaq.moviedb.ui.theme.MontserratFontFamily
 import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 import com.razzaaq.moviedb.ui.theme.ubuntuFontFamily

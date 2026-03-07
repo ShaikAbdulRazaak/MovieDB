@@ -12,8 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Image
-import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.Movie
+import com.razzaaq.moviedb.api.dto.Image
+import com.razzaaq.moviedb.api.dto.Movie
 import com.razzaaq.moviedb.ui.theme.ubuntuFontFamily
 
 @Composable
