@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.MovieDetail
 import com.razzaaq.moviedb.api.dto.Image
+import com.razzaaq.moviedb.api.dto.MovieDetail
 import com.razzaaq.moviedb.ui.theme.MontserratFontFamily
 import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 import com.razzaaq.moviedb.ui.theme.ubuntuFontFamily
@@ -34,53 +34,77 @@ fun NowPlayingDetailScreen(
     Column(
         modifier.fillMaxSize()
     ) {
-        ElevatedCard(
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-            modifier = Modifier.padding(8.dp),
-        ) {
-            Box {
-                PosterImage(
-                    imagePath = movieDetail.backdropPath,
-                    baseUrl = posterImage.url,
-                    imageSize = posterImage.imageSize,
+        MoviePoster(movieDetail, posterImage, modifier)
+        Overview(movieDetail)
+        ProductionCompanies(movieDetail, posterImage)
+    }
+}
+
+@Composable
+private fun Overview(movieDetail: MovieDetail) {
+    Text(
+        "Overview",
+        modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
+        fontFamily = ubuntuFontFamily,
+        style = MaterialTheme.typography.bodyLarge,
+        textDecoration = TextDecoration.Underline
+    )
+    Text(
+        text = movieDetail.overview,
+        style = MaterialTheme.typography.bodyMedium,
+        fontFamily = MontserratFontFamily,
+        modifier = Modifier.padding(horizontal = 16.dp)
+    )
+}
+
+@Composable
+private fun MoviePoster(
+    movieDetail: MovieDetail,
+    posterImage: Image,
+    modifier: Modifier
+) {
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        modifier = Modifier.padding(8.dp),
+    ) {
+        Box {
+            PosterImage(
+                imagePath = movieDetail.backdropPath,
+                baseUrl = posterImage.url,
+                imageSize = posterImage.imageSize,
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomStart)
+                    .background(color = Color.Black.copy(alpha = 0.5f))
+            ) {
+                Text(
+                    text = movieDetail.title,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = modifier
+                        .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
+                    color = Color.White
                 )
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomStart)
-                        .background(color = Color.Black.copy(alpha = 0.5f))
-                ) {
+                if (movieDetail.tagline.isNotEmpty())
                     Text(
-                        text = movieDetail.title,
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = modifier
-                            .padding(start = 16.dp, top = 8.dp, bottom = 8.dp),
-                        color = Color.White
+                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp),
+                        text = movieDetail.tagline,
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontFamily = didactGothicFontFamily
                     )
-                    if (movieDetail.tagline.isNotEmpty())
-                        Text(
-                            modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, end = 16.dp),
-                            text = movieDetail.tagline,
-                            color = Color.White,
-                            style = MaterialTheme.typography.bodySmall,
-                            fontFamily = didactGothicFontFamily
-                        )
-                }
             }
         }
-        Text(
-            "Overview",
-            modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp),
-            fontFamily = ubuntuFontFamily,
-            style = MaterialTheme.typography.bodyLarge,
-            textDecoration = TextDecoration.Underline
-        )
-        Text(
-            text = movieDetail.overview,
-            style = MaterialTheme.typography.bodyMedium,
-            fontFamily = MontserratFontFamily,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+    }
+}
+
+@Composable
+private fun ProductionCompanies(
+    movieDetail: MovieDetail,
+    posterImage: Image
+) {
+    if (movieDetail.productionCompanies.any { it.logoPath.isNotEmpty() }) {
         Text(
             text = "Production Companies",
             modifier = Modifier.padding(start = 16.dp, top = 16.dp),

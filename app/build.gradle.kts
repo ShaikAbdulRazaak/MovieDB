@@ -89,6 +89,7 @@ dependencies {
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.okhttp)
     implementation(libs.hilt.android)
+    testImplementation(libs.junit.jupiter)
     ksp(libs.hilt.android.compiler)
     ksp(libs.kotlin.metadata.jvm)
     implementation(libs.coil3.coil.compose)
