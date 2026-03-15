@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,30 +44,26 @@ private fun ProductionCompany(
     posterImage: Image,
     modifier: Modifier = Modifier
 ) {
-    ElevatedCard(
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
-        Row(modifier = modifier.padding(8.dp)) {
-            PosterImage(
-                imagePath = productionCompany.logoPath,
-                baseUrl = posterImage.url,
-                imageSize = "w300",
-                modifier = Modifier
-                    .align(Alignment.CenterVertically)
-                    .padding(end = 8.dp)
-            )
-            Text(
-                text = productionCompany.name,
-                modifier = Modifier
-                    .padding(horizontal = 4.dp)
-                    .align(Alignment.CenterVertically),
-                fontFamily = didactGothicFontFamily
-            )
-            Text(
-                text = productionCompany.originCountry,
-                fontFamily = didactGothicFontFamily,
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
-        }
+    Row(modifier = modifier.padding(8.dp)) {
+        PosterImage(
+            imagePath = productionCompany.logoPath,
+            baseUrl = posterImage.url,
+            imageSize = "w300",
+            modifier = Modifier
+                .align(Alignment.CenterVertically)
+                .padding(end = 8.dp)
+        )
+        Text(
+            text = productionCompany.name,
+            modifier = Modifier
+                .padding(horizontal = 4.dp)
+                .align(Alignment.CenterVertically),
+            fontFamily = didactGothicFontFamily
+        )
+        Text(
+            text = productionCompany.originCountry,
+            fontFamily = didactGothicFontFamily,
+            modifier = Modifier.align(Alignment.CenterVertically)
+        )
     }
 }
