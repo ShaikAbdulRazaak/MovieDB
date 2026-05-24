@@ -6,6 +6,7 @@ A simple Android application that displays a list of currently playing movies us
 
 - **Now Playing Movies**: Displays a list of currently playing movies in a responsive staggered grid layout.
 - **Movie Details**: Provides a comprehensive view of movie information, including backdrop images, taglines, overviews, and production company logos.
+- **Loading & Error Handling**: Graceful UI states for data fetching, including loading indicators and retry mechanisms for network failures.
 - **Real-time Data**: Fetches up-to-date information from the TMDB API.
 - **Dynamic Image Loading**: Efficiently loads movie posters and backdrops with support for different TMDB configurations.
 - **Modern UI**: Built entirely with Jetpack Compose and Material 3 for a fluid user experience.
@@ -29,6 +30,7 @@ A simple Android application that displays a list of currently playing movies us
 
 - Android Studio Ladybug (2024.2.1) or newer.
 - JDK 22.
+- Android SDK 37 (for compilation).
 - A TMDB API Key (v3 or v4 Auth Token). Get one at [themoviedb.org](https://www.themoviedb.org/).
 
 ### Setup
@@ -54,11 +56,15 @@ A simple Android application that displays a list of currently playing movies us
 - `gradle/libs.versions.toml`: Version catalog for centralized dependency management.
 - `MovieDBApp.kt`: Application entry point and Hilt configuration.
 
-## Recent Updates
+## Contributing
 
-- **Screen Refactoring**: Modularized the `NowPlayingDetailScreen` into smaller, reusable composables (`MoviePoster`, `Overview`, `ProductionCompanies`) for better readability and maintainability.
-- **String Resource Integration**: Moved hardcoded UI strings to `strings.xml` to follow Android best practices and enable localization.
-- **Enhanced Detail View**: Added support for displaying production companies and improved the layout of the movie detail header.
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## Troubleshooting
 
