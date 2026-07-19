@@ -11,18 +11,18 @@ import java.text.NumberFormat
 
 @Composable
 fun Revenue(
-    modifier: Modifier = Modifier,
-    revenue: Int
+    revenue: Int,
+    modifier: Modifier = Modifier
 ) {
     if (revenue != 0)
-        Column {
+        Column(modifier = modifier) {
             MovieDetailHeading("Revenue")
             val formattedRevenue = NumberFormat.getCurrencyInstance().apply {
                 maximumFractionDigits = 0
             }.format(revenue)
             Text(
                 text = formattedRevenue,
-                modifier = modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 8.dp),
                 fontFamily = didactGothicFontFamily
             )
         }

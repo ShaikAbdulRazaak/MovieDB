@@ -10,7 +10,7 @@ import com.razzaaq.moviedb.api.dto.Image
 import com.razzaaq.moviedb.api.dto.MovieDetail
 
 @Composable
-fun NowPlayingDetailScreen(
+fun MovieDetailScreen(
     modifier: Modifier = Modifier,
     posterImage: Image,
     movieDetail: MovieDetail
@@ -22,14 +22,13 @@ fun NowPlayingDetailScreen(
         item {
             MoviePoster(
                 title = movieDetail.title,
-                backdropPath = movieDetail.backdropPath,
+                backdropPath = movieDetail.backdropPath.ifEmpty { movieDetail.posterPath },
                 tagline = movieDetail.tagline,
-                posterImage = posterImage,
-                modifier = modifier
+                posterImage = posterImage
             )
         }
         item {
-            MovieDetailItems(modifier, movieDetail, posterImage)
+            MovieDetailItems(movieDetail = movieDetail, posterImage = posterImage)
         }
     }
 }

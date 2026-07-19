@@ -12,12 +12,11 @@ import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
-fun Webpage(modifier: Modifier = Modifier, homepage: String) {
+fun Webpage(homepage: String, modifier: Modifier = Modifier) {
     if (homepage.isNotEmpty())
-        Column {
+        Column(modifier = modifier) {
             MovieDetailHeading(
-                stringResource(R.string.homepage),
-                modifier = modifier
+                stringResource(R.string.homepage)
             )
             Text(
                 buildAnnotatedString {

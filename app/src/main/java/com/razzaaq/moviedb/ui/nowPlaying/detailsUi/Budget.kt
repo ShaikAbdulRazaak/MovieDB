@@ -10,16 +10,16 @@ import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 import java.text.NumberFormat
 
 @Composable
-fun Budget(modifier: Modifier = Modifier, budget: Int) {
+fun Budget(budget: Int, modifier: Modifier = Modifier) {
     if (budget != 0)
-        Column {
+        Column(modifier = modifier) {
             MovieDetailHeading("Budget")
             val formattedRevenue = NumberFormat.getCurrencyInstance().apply {
                 maximumFractionDigits = 0
             }.format(budget)
             Text(
                 text = formattedRevenue,
-                modifier = modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 8.dp),
                 fontFamily = didactGothicFontFamily
             )
         }

@@ -22,9 +22,9 @@ fun MoviePoster(
     backdropPath: String,
     tagline: String,
     posterImage: Image,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
-    Box {
+    Box(modifier = modifier) {
         PosterImage(
             imagePath = backdropPath,
             baseUrl = posterImage.url,
@@ -39,7 +39,7 @@ fun MoviePoster(
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = modifier
+                modifier = Modifier
                     .padding(horizontal = 16.dp),
                 color = Color.White
             )

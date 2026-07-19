@@ -13,7 +13,7 @@ import kotlinx.datetime.format.MonthNames
 import kotlinx.datetime.format.char
 
 @Composable
-fun ReleaseDate(modifier: Modifier = Modifier, releaseDate: String) {
+fun ReleaseDate(releaseDate: String, modifier: Modifier = Modifier) {
     if (releaseDate.isNotEmpty()) {
         Column(modifier) {
             MovieDetailHeading("Release Date")
@@ -31,7 +31,7 @@ fun ReleaseDate(modifier: Modifier = Modifier, releaseDate: String) {
             Text(
                 formattedReleaseDate,
                 fontFamily = didactGothicFontFamily,
-                modifier = modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
     }

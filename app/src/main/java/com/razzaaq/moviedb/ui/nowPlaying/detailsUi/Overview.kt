@@ -12,18 +12,17 @@ import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.ui.theme.MontserratFontFamily
 
 @Composable
-fun Overview(overview: String, modifier: Modifier) {
+fun Overview(overview: String, modifier: Modifier = Modifier) {
     if (overview.isNotEmpty())
-        Column {
+        Column(modifier = modifier) {
             MovieDetailHeading(
-                title = stringResource(R.string.overview),
-                modifier = modifier
+                title = stringResource(R.string.overview)
             )
             Text(
                 text = overview,
                 style = MaterialTheme.typography.bodyMedium,
                 fontFamily = MontserratFontFamily,
-                modifier = modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
 }

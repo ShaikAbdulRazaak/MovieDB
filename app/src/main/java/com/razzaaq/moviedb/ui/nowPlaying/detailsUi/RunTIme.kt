@@ -11,8 +11,8 @@ import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
-fun RunTime(modifier: Modifier = Modifier, runTime: Int) {
-    Column {
+fun RunTime(runTime: Int, modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
         if (runTime != 0) {
             MovieDetailHeading("RunTime")
             val hours = runTime.div(60)
@@ -32,7 +32,7 @@ fun RunTime(modifier: Modifier = Modifier, runTime: Int) {
                 .joinToString(" ")
             Text(
                 text = formattedTime,
-                modifier = modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 8.dp),
                 fontFamily = didactGothicFontFamily
             )
         }

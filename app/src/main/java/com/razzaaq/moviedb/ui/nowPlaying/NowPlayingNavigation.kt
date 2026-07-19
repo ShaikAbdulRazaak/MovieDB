@@ -1,4 +1,4 @@
 package com.razzaaq.moviedb.ui.nowPlaying
 
-data class NowPlayingDetail(val movieId: Int)
-data object NowPlaying
+data class Detail(val movieId: Int)
+data object Dashboard

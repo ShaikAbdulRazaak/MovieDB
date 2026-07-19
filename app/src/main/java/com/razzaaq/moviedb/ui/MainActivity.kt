@@ -15,17 +15,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
-import com.razzaaq.moviedb.ui.nowPlaying.NowPlaying
-import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingDetail
-import com.razzaaq.moviedb.ui.nowPlaying.detailsUi.NowPlayingDetailScreen
-import com.razzaaq.moviedb.ui.nowPlaying.NowPlayingScreen
-import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.NowPlayingViewModel
+import com.razzaaq.moviedb.ui.nowPlaying.DashBoardScreen
+import com.razzaaq.moviedb.ui.nowPlaying.Dashboard
+import com.razzaaq.moviedb.ui.nowPlaying.Detail
+import com.razzaaq.moviedb.ui.nowPlaying.detailsUi.MovieDetailScreen
+import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.DashBoardViewModel
 import com.razzaaq.moviedb.ui.theme.MovieDBTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val nowPlayingViewModel by viewModels<NowPlayingViewModel>()
+    val dashBoardViewModel by viewModels<DashBoardViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieDBTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val backStack = remember { mutableStateListOf<Any>(NowPlaying) }
+                    val backStack = remember { mutableStateListOf<Any>(Dashboard) }
 
                     NavDisplay(
                         backStack = backStack,
@@ -43,22 +43,25 @@ class MainActivity : ComponentActivity() {
                         },
                         entryProvider = { key ->
                             when (key) {
-                                is NowPlaying -> NavEntry(key = key) {
-                                    val uiState by nowPlayingViewModel.uiState.collectAsState()
-                                    NowPlayingScreen(
-                                        movies = uiState.nowPlaying,
+                                is Dashboard -> NavEntry(key = key) {
+                                    val uiState by dashBoardViewModel.uiState.collectAsState()
+                                    DashBoardScreen(
+                                        nowPlayingMovies = uiState.nowPlaying,
+                                        topRatedMovies = uiState.topRated,
+                                        upcomingMovies = uiState.upComing,
+                                        popularMovies = uiState.popular,
                                         posterImage = uiState.posterImage,
                                         onCardClick = {
-                                            backStack.add(NowPlayingDetail(it))
-                                            nowPlayingViewModel.getMovieDetail(it)
+                                            backStack.add(Detail(it))
+                                            dashBoardViewModel.getMovieDetail(it)
                                         }
                                     )
                                 }
 
-                                is NowPlayingDetail -> NavEntry(key = key) {
-                                    val detailsUiState by nowPlayingViewModel.detailsUiState.collectAsState()
-                                    NowPlayingDetailScreen(
-                                        movieDetail = detailsUiState.nowPlayingDetails,
+                                is Detail -> NavEntry(key = key) {
+                                    val detailsUiState by dashBoardViewModel.detailsUiState.collectAsState()
+                                    MovieDetailScreen(
+                                        movieDetail = detailsUiState.movieDetail,
                                         posterImage = detailsUiState.posterImage
                                     )
                                 }

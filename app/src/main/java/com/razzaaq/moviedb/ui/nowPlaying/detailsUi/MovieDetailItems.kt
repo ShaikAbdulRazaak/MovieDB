@@ -14,7 +14,7 @@ import com.razzaaq.moviedb.api.dto.MovieDetail
 
 @Composable
 fun MovieDetailItems(
-    modifier: Modifier, movieDetail: MovieDetail, posterImage: Image
+    movieDetail: MovieDetail, posterImage: Image, modifier: Modifier = Modifier
 ) {
     Column(
         modifier
@@ -23,25 +23,23 @@ fun MovieDetailItems(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Overview(
-            overview = movieDetail.overview, modifier = modifier
+            overview = movieDetail.overview
         )
-        MovieDetailSummary(modifier, movieDetail)
+        MovieDetailSummary(movieDetail)
         ProductionCompanies(
             productionCompanies = movieDetail.productionCompanies,
-            posterImage = posterImage,
-            modifier = modifier,
+            posterImage = posterImage
         )
         Webpage(
-            homepage = movieDetail.homepage,
-            modifier = modifier,
+            homepage = movieDetail.homepage
         )
     }
 }
 
 @Composable
 private fun MovieDetailSummary(
-    modifier: Modifier,
-    movieDetail: MovieDetail
+    movieDetail: MovieDetail,
+    modifier: Modifier = Modifier
 ) {
     FlowRow(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
@@ -49,21 +47,18 @@ private fun MovieDetailSummary(
         modifier = modifier.fillMaxWidth()
     ) {
         Genre(
-            modifier = modifier, genres = movieDetail.genres
+            genres = movieDetail.genres
         )
         RunTime(
-            modifier = modifier, runTime = movieDetail.runtime
+            runTime = movieDetail.runtime
         )
         ReleaseDate(
-            modifier = modifier,
             releaseDate = movieDetail.releaseDate
         )
         Revenue(
-            revenue = movieDetail.revenue,
-            modifier = modifier
+            revenue = movieDetail.revenue
         )
         Budget(
-            modifier = modifier,
             budget = movieDetail.budget
         )
     }

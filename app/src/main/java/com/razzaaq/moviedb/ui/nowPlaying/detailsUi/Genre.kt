@@ -14,15 +14,14 @@ import com.razzaaq.moviedb.api.dto.MovieDetail
 import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
-fun Genre(modifier: Modifier = Modifier, genres: List<MovieDetail.Genre>) {
+fun Genre(genres: List<MovieDetail.Genre>, modifier: Modifier = Modifier) {
     if (genres.isNotEmpty())
-        Column {
+        Column(modifier = modifier) {
             MovieDetailHeading(
-                title = stringResource(R.string.genre),
-                modifier = modifier
+                title = stringResource(R.string.genre)
             )
             FlowRow(
-                modifier = modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
