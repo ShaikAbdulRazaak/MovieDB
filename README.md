@@ -1,10 +1,10 @@
 # MovieDB
 
-A simple Android application that displays a list of currently playing movies using The Movie Database (TMDB) API.
+A simple Android application that displays a movie dashboard with multiple categories using The Movie Database (TMDB) API.
 
 ## Features
 
-- **Now Playing Movies**: Displays a list of currently playing movies in a responsive staggered grid layout.
+- **Movie Dashboard**: Displays multiple categories including Now Playing, Upcoming, Top Rated, and Popular movies in a responsive, scrollable layout.
 - **Movie Details**: Provides a comprehensive view of movie information, including backdrop images, taglines, overviews, and production company logos.
 - **Loading & Error Handling**: Graceful UI states for data fetching, including loading indicators and retry mechanisms for network failures.
 - **Real-time Data**: Fetches up-to-date information from the TMDB API.
@@ -52,7 +52,7 @@ A simple Android application that displays a list of currently playing movies us
 ## Project Structure
 
 - `com.razzaaq.moviedb.api`: Networking layer, Retrofit services, DTOs (Data Transfer Objects), and Hilt modules.
-- `com.razzaaq.moviedb.ui`: UI layer including screens (Now Playing, Movie Details), ViewModels, and theme (Material 3, Google Fonts).
+- `com.razzaaq.moviedb.ui`: UI layer including screens (Dashboard, Movie Details), ViewModels, and theme (Material 3, Google Fonts).
 - `gradle/libs.versions.toml`: Version catalog for centralized dependency management.
 - `MovieDBApp.kt`: Application entry point and Hilt configuration.
 
