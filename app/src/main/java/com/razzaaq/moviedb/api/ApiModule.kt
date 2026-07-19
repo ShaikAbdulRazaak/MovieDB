@@ -8,6 +8,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -27,9 +28,15 @@ object ApiModule {
     fun provideConverterFactory(): Converter.Factory =
         json.asConverterFactory("application/json".toMediaType())
 
+    @Provides
+    fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
+        level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+            else HttpLoggingInterceptor.Level.NONE
+    }
+
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient =
+    fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor { chain ->
                 chain.proceed(
@@ -39,6 +46,7 @@ object ApiModule {
                         .build()
                 )
             }
+            .addInterceptor(httpLoggingInterceptor)
             .build()
 
     @Provides

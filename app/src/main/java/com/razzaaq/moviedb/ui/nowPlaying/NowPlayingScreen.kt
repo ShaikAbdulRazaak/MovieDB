@@ -19,7 +19,7 @@ import com.razzaaq.moviedb.ui.theme.ubuntuFontFamily
 @Composable
 fun NowPlayingScreen(
     modifier: Modifier = Modifier,
-    movies: List<Movie> = listOf(),
+    movies: List<Movie>,
     posterImage: Image,
     onCardClick: (movieId: Int) -> Unit
 ) {
