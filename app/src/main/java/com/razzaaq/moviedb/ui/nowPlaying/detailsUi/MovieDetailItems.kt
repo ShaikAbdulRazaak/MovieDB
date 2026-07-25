@@ -9,12 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.Image
-import com.razzaaq.moviedb.api.dto.MovieDetail
+import com.razzaaq.moviedb.api.dto.MovieDetailUi
 
 @Composable
 fun MovieDetailItems(
-    movieDetail: MovieDetail, posterImage: Image, modifier: Modifier = Modifier
+    movieDetail: MovieDetailUi, modifier: Modifier = Modifier
 ) {
     Column(
         modifier
@@ -27,8 +26,7 @@ fun MovieDetailItems(
         )
         MovieDetailSummary(movieDetail)
         ProductionCompanies(
-            productionCompanies = movieDetail.productionCompanies,
-            posterImage = posterImage
+            productionCompanies = movieDetail.productionCompanies
         )
         Webpage(
             homepage = movieDetail.homepage
@@ -38,7 +36,7 @@ fun MovieDetailItems(
 
 @Composable
 private fun MovieDetailSummary(
-    movieDetail: MovieDetail,
+    movieDetail: MovieDetailUi,
     modifier: Modifier = Modifier
 ) {
     FlowRow(
@@ -50,7 +48,7 @@ private fun MovieDetailSummary(
             genres = movieDetail.genres
         )
         RunTime(
-            runTime = movieDetail.runtime
+            runtime = movieDetail.runtime
         )
         ReleaseDate(
             releaseDate = movieDetail.releaseDate

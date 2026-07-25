@@ -2,25 +2,22 @@ package com.razzaaq.moviedb.api
 
 import com.razzaaq.moviedb.api.dto.ConfigurationDetail
 import com.razzaaq.moviedb.api.dto.MovieDetail
-import com.razzaaq.moviedb.api.dto.NowPlayingDto
-import com.razzaaq.moviedb.api.dto.PopularMoviesDto
-import com.razzaaq.moviedb.api.dto.TopRatedMoviesDto
-import com.razzaaq.moviedb.api.dto.UpcomingMoviesDto
+import com.razzaaq.moviedb.api.dto.MovieResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface ApiService {
     @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(): NowPlayingDto
+    suspend fun getNowPlayingMovies(): MovieResponseDto
 
     @GET("movie/popular")
-    suspend fun getPopular(): PopularMoviesDto
+    suspend fun getPopular(): MovieResponseDto
 
     @GET("movie/top_rated")
-    suspend fun getTopRated(): TopRatedMoviesDto
+    suspend fun getTopRated(): MovieResponseDto
 
     @GET("movie/upcoming")
-    suspend fun getUpcomingMovies(): UpcomingMoviesDto
+    suspend fun getUpcomingMovies(): MovieResponseDto
 
     @GET("configuration")
     suspend fun getTMDBConfiguration(): ConfigurationDetail

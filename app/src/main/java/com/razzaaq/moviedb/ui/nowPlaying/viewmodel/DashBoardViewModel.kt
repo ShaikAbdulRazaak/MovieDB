@@ -1,18 +1,20 @@
 package com.razzaaq.moviedb.ui.nowPlaying.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.api.ApiService
 import com.razzaaq.moviedb.api.dto.ConfigurationDetail
 import com.razzaaq.moviedb.api.dto.DetailsUiState
 import com.razzaaq.moviedb.api.dto.Image
-import com.razzaaq.moviedb.api.dto.Movie
 import com.razzaaq.moviedb.api.dto.MovieDetail
-import com.razzaaq.moviedb.api.dto.NowPlayingDto
-import com.razzaaq.moviedb.api.dto.NowPlayingUiState
-import com.razzaaq.moviedb.api.dto.PopularMoviesDto
-import com.razzaaq.moviedb.api.dto.TopRatedMoviesDto
-import com.razzaaq.moviedb.api.dto.UpcomingMoviesDto
+import com.razzaaq.moviedb.api.dto.MovieDetailUi
+import com.razzaaq.moviedb.api.dto.MovieResponseDto
+import com.razzaaq.moviedb.api.dto.MovieResultDto
+import com.razzaaq.moviedb.api.dto.MovieUi
+import com.razzaaq.moviedb.api.dto.ProductionCompanyUi
+import com.razzaaq.moviedb.api.dto.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,15 +22,23 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.format
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.char
+import java.text.NumberFormat
 import javax.inject.Inject
 
 @HiltViewModel
-class DashBoardViewModel @Inject constructor(private val apiService: ApiService) : ViewModel() {
+class DashBoardViewModel @Inject constructor(
+    private val apiService: ApiService,
+    private val application: Application
+) : ViewModel() {
 
-    private val nowPlayingFlow = MutableStateFlow(NowPlayingDto())
-    private val topRatedFlow = MutableStateFlow(TopRatedMoviesDto())
-    private val upcomingMoviesFlow = MutableStateFlow(UpcomingMoviesDto())
-    private val popularMoviesFlow = MutableStateFlow(PopularMoviesDto())
+    private val nowPlayingFlow = MutableStateFlow(MovieResponseDto())
+    private val topRatedFlow = MutableStateFlow(MovieResponseDto())
+    private val upcomingMoviesFlow = MutableStateFlow(MovieResponseDto())
+    private val popularMoviesFlow = MutableStateFlow(MovieResponseDto())
     private val configurationData = MutableStateFlow(ConfigurationDetail())
     private val detailFlow = MutableStateFlow(MovieDetail())
 
@@ -55,17 +65,17 @@ class DashBoardViewModel @Inject constructor(private val apiService: ApiService)
         popularMoviesFlow,
         topRatedFlow
     ) { configuration, nowPlaying, upComing, popular, topRated ->
-        NowPlayingUiState(
-            nowPlaying = nowPlaying.results.map { it.toMovie() },
-            posterImage = configuration.toImage(),
-            topRated = topRated.results.map { it.toMovie() },
-            upComing = upComing.results.map { it.toMovie() },
-            popular = popular.results.map { it.toMovie() }
+        val posterImage = configuration.toImage()
+        UiState(
+            nowPlaying = nowPlaying.results.map { it.toUi(posterImage) },
+            topRated = topRated.results.map { it.toUi(posterImage) },
+            upComing = upComing.results.map { it.toUi(posterImage) },
+            popular = popular.results.map { it.toUi(posterImage) }
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
-        initialValue = NowPlayingUiState()
+        initialValue = UiState()
     )
 
     fun getMovieDetail(movieId: Int) = viewModelScope.launch {
@@ -77,9 +87,10 @@ class DashBoardViewModel @Inject constructor(private val apiService: ApiService)
             detailFlow,
             configurationData,
         ) { detailFlow, configuration ->
+            val posterImage = configuration.toImage()
             DetailsUiState(
-                movieDetail = detailFlow,
-                posterImage = configuration.toImage(),
+                movieDetail = detailFlow.toUi(posterImage),
+                posterImage = posterImage,
             )
         }.stateIn(
             scope = viewModelScope,
@@ -87,12 +98,78 @@ class DashBoardViewModel @Inject constructor(private val apiService: ApiService)
             initialValue = DetailsUiState()
         )
 
+    private fun MovieDetail.toUi(posterImage: Image): MovieDetailUi {
+        val currencyFormat = NumberFormat.getCurrencyInstance().apply {
+            maximumFractionDigits = 0
+        }
+
+        val formattedReleaseDate = runCatching {
+            val date = LocalDate.parse(releaseDate)
+            val format = LocalDate.Format {
+                day()
+                char(' ')
+                monthName(MonthNames.ENGLISH_FULL)
+                char(' ')
+                year()
+            }
+            date.format(format)
+        }.getOrElse { releaseDate }
+
+        val genresString = when (genres.size) {
+            0 -> ""
+            1 -> genres.first().name
+            else -> {
+                val genresExceptLast = genres.dropLast(1).joinToString(", ") { it.name }
+                "$genresExceptLast and ${genres.last().name}"
+            }
+        }
+
+        val hours = runtime.div(60)
+        val minutes = runtime.rem(60)
+        val hourText = if (hours > 0)
+            application.resources.getQuantityString(
+                R.plurals.runtime_hours,
+                hours, hours
+            ) else ""
+        val minuteText = if (minutes > 0)
+            application.resources.getQuantityString(
+                R.plurals.runtime_minutes,
+                minutes, minutes
+            ) else ""
+        val formattedTime = listOf(hourText, minuteText)
+            .filter { it.isNotEmpty() }
+            .joinToString(" ")
+
+        return MovieDetailUi(
+            id = id,
+            title = title,
+            backdropPath = "${posterImage.url}${posterImage.imageSize}${backdropPath.ifEmpty { posterPath }}",
+            tagline = tagline,
+            overview = overview,
+            budget = if (budget != 0) currencyFormat.format(budget) else "",
+            revenue = if (revenue != 0) currencyFormat.format(revenue) else "",
+            releaseDate = formattedReleaseDate,
+            runtime = formattedTime,
+            genres = genresString,
+            homepage = homepage,
+            productionCompanies = productionCompanies.map {
+                ProductionCompanyUi(
+                    id = it.id,
+                    logoUrl = if (it.logoPath.isNotEmpty()) "${posterImage.url}w300${it.logoPath}" else "",
+                    name = it.name,
+                    originCountry = it.originCountry
+                )
+            }
+        )
+    }
+
 }
 
-private fun NowPlayingDto.Result.toMovie() = Movie(id = id, title = title, posterPath = posterPath)
-private fun PopularMoviesDto.Result.toMovie() = Movie(id = id, title = title, posterPath = posterPath)
-private fun TopRatedMoviesDto.Result.toMovie() = Movie(id = id, title = title, posterPath = posterPath)
-private fun UpcomingMoviesDto.Result.toMovie() = Movie(id = id, title = title, posterPath = posterPath)
+private fun MovieResultDto.toUi(posterImage: Image) = MovieUi(
+    id = id,
+    title = title,
+    fullPosterUrl = "${posterImage.url}${posterImage.imageSize}$posterPath"
+)
 
 private fun ConfigurationDetail.toImage(): Image = Image(
     url = images.secureBaseUrl,

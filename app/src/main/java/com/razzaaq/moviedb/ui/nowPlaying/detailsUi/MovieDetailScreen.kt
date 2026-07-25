@@ -6,14 +6,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.Image
-import com.razzaaq.moviedb.api.dto.MovieDetail
+import com.razzaaq.moviedb.api.dto.MovieDetailUi
 
 @Composable
 fun MovieDetailScreen(
     modifier: Modifier = Modifier,
-    posterImage: Image,
-    movieDetail: MovieDetail
+    movieDetail: MovieDetailUi
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -22,13 +20,12 @@ fun MovieDetailScreen(
         item {
             MoviePoster(
                 title = movieDetail.title,
-                backdropPath = movieDetail.backdropPath.ifEmpty { movieDetail.posterPath },
-                tagline = movieDetail.tagline,
-                posterImage = posterImage
+                backdropPath = movieDetail.backdropPath,
+                tagline = movieDetail.tagline
             )
         }
         item {
-            MovieDetailItems(movieDetail = movieDetail, posterImage = posterImage)
+            MovieDetailItems(movieDetail = movieDetail)
         }
     }
 }

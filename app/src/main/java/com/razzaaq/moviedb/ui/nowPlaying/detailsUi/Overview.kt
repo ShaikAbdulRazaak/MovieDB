@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
-import com.razzaaq.moviedb.ui.theme.MontserratFontFamily
 
 @Composable
 fun Overview(overview: String, modifier: Modifier = Modifier) {
@@ -21,7 +20,6 @@ fun Overview(overview: String, modifier: Modifier = Modifier) {
             Text(
                 text = overview,
                 style = MaterialTheme.typography.bodyMedium,
-                fontFamily = MontserratFontFamily,
                 modifier = Modifier.padding(top = 8.dp)
             )
         }

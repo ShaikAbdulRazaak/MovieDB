@@ -50,7 +50,6 @@ class MainActivity : ComponentActivity() {
                                         topRatedMovies = uiState.topRated,
                                         upcomingMovies = uiState.upComing,
                                         popularMovies = uiState.popular,
-                                        posterImage = uiState.posterImage,
                                         onCardClick = {
                                             backStack.add(Detail(it))
                                             dashBoardViewModel.getMovieDetail(it)
@@ -61,8 +60,7 @@ class MainActivity : ComponentActivity() {
                                 is Detail -> NavEntry(key = key) {
                                     val detailsUiState by dashBoardViewModel.detailsUiState.collectAsState()
                                     MovieDetailScreen(
-                                        movieDetail = detailsUiState.movieDetail,
-                                        posterImage = detailsUiState.posterImage
+                                        movieDetail = detailsUiState.movieDetail
                                     )
                                 }
 

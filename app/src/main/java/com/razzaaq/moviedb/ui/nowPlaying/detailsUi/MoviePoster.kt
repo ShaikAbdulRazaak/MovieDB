@@ -12,23 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.Image
 import com.razzaaq.moviedb.ui.nowPlaying.PosterImage
-import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
 fun MoviePoster(
     title: String,
     backdropPath: String,
     tagline: String,
-    posterImage: Image,
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
         PosterImage(
-            imagePath = backdropPath,
-            baseUrl = posterImage.url,
-            imageSize = posterImage.imageSize,
+            imageUrl = backdropPath
         )
         Column(
             modifier = Modifier
@@ -48,8 +43,7 @@ fun MoviePoster(
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                     text = tagline,
                     color = Color.White,
-                    style = MaterialTheme.typography.bodySmall,
-                    fontFamily = didactGothicFontFamily
+                    style = MaterialTheme.typography.labelMedium
                 )
         }
     }

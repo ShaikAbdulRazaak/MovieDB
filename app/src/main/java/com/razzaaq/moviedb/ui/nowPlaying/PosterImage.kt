@@ -9,14 +9,12 @@ import coil3.request.crossfade
 
 @Composable
 fun PosterImage(
-    imagePath: String,
-    baseUrl: String,
-    imageSize: String,
+    imageUrl: String,
     modifier: Modifier = Modifier
 ) {
     AsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
-            .data("${baseUrl}${imageSize}$imagePath")
+            .data(imageUrl)
             .crossfade(true)
             .build(),
         contentDescription = null,

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,26 +13,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
-import com.razzaaq.moviedb.api.dto.Image
-import com.razzaaq.moviedb.api.dto.MovieDetail
+import com.razzaaq.moviedb.api.dto.ProductionCompanyUi
 import com.razzaaq.moviedb.ui.nowPlaying.PosterImage
-import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
 fun ProductionCompanies(
-    productionCompanies: List<MovieDetail.ProductionCompany>,
-    posterImage: Image,
+    productionCompanies: List<ProductionCompanyUi>,
     modifier: Modifier = Modifier
 ) {
-    if (productionCompanies.any { it.logoPath.isNotEmpty() }) {
+    if (productionCompanies.any { it.logoUrl.isNotEmpty() }) {
         Column(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             MovieDetailHeading(title = stringResource(R.string.production_companies))
             productionCompanies.forEach { productionCompany ->
-                if (productionCompany.logoPath.isNotEmpty()) {
-                    ProductionCompany(productionCompany, posterImage)
+                if (productionCompany.logoUrl.isNotEmpty()) {
+                    ProductionCompany(productionCompany)
                 }
             }
         }
@@ -40,29 +38,27 @@ fun ProductionCompanies(
 
 @Composable
 private fun ProductionCompany(
-    productionCompany: MovieDetail.ProductionCompany,
-    posterImage: Image,
+    productionCompany: ProductionCompanyUi,
     modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier.padding(8.dp)) {
         PosterImage(
-            imagePath = productionCompany.logoPath,
-            baseUrl = posterImage.url,
-            imageSize = "w300",
+            imageUrl = productionCompany.logoUrl,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
                 .padding(end = 8.dp)
         )
         Text(
             text = productionCompany.name,
+            style = MaterialTheme.typography.labelLarge,
             modifier = Modifier
                 .padding(horizontal = 4.dp)
-                .align(Alignment.CenterVertically),
-            fontFamily = didactGothicFontFamily
+                .align(Alignment.CenterVertically)
         )
         Text(
             text = productionCompany.originCountry,
-            fontFamily = didactGothicFontFamily,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
     }

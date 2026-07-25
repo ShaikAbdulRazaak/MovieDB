@@ -12,42 +12,42 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.Image
-import com.razzaaq.moviedb.api.dto.Movie
+import com.razzaaq.moviedb.api.dto.MovieUi
 import com.razzaaq.moviedb.api.dto.Movies
 
 @Composable
 fun DashBoardScreen(
     modifier: Modifier = Modifier,
-    nowPlayingMovies: List<Movie>,
-    popularMovies: List<Movie>,
-    topRatedMovies: List<Movie>,
-    upcomingMovies: List<Movie>,
-    posterImage: Image,
+    nowPlayingMovies: List<MovieUi>,
+    popularMovies: List<MovieUi>,
+    topRatedMovies: List<MovieUi>,
+    upcomingMovies: List<MovieUi>,
     onCardClick: (movieId: Int) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(modifier.verticalScroll(scrollState)) {
-        Section(title = Movies.NOW_PLAYING.value, movies = nowPlayingMovies, onCardClick = onCardClick, posterImage = posterImage)
-        Section(title = Movies.UPCOMING.value, movies = upcomingMovies, onCardClick = onCardClick, posterImage = posterImage)
-        Section(title = Movies.TOP_RATED.value, movies = topRatedMovies, onCardClick = onCardClick, posterImage = posterImage)
-        Section(title = Movies.POPULAR.value, movies = popularMovies, onCardClick = onCardClick, posterImage = posterImage)
+        Section(title = Movies.NOW_PLAYING.value, movies = nowPlayingMovies, onCardClick = onCardClick)
+        Section(title = Movies.UPCOMING.value, movies = upcomingMovies, onCardClick = onCardClick)
+        Section(title = Movies.TOP_RATED.value, movies = topRatedMovies, onCardClick = onCardClick)
+        Section(title = Movies.POPULAR.value, movies = popularMovies, onCardClick = onCardClick)
     }
 }
 
 @Composable
 private fun Section(
     title: String,
-    movies: List<Movie>,
-    onCardClick: (Int) -> Unit,
-    posterImage: Image
+    movies: List<MovieUi>,
+    onCardClick: (Int) -> Unit
 ) {
     Text(
         text = title,
+        style = MaterialTheme.typography.headlineSmall,
+        color = MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
     )
     LazyHorizontalGrid(
@@ -58,7 +58,7 @@ private fun Section(
             .height(280.dp)
     ) {
         items(movies) { movie ->
-            MovieCard(onCardClick, movie, posterImage)
+            MovieCard(onCardClick, movie)
         }
     }
 }
@@ -66,8 +66,7 @@ private fun Section(
 @Composable
 private fun MovieCard(
     onCardClick: (Int) -> Unit,
-    movie: Movie,
-    posterImage: Image
+    movie: MovieUi
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -76,9 +75,7 @@ private fun MovieCard(
         onClick = { onCardClick(movie.id) }
     ) {
         PosterImage(
-            imagePath = movie.posterPath,
-            baseUrl = posterImage.url,
-            imageSize = posterImage.imageSize,
+            imageUrl = movie.fullPosterUrl,
             modifier = Modifier.wrapContentSize()
         )
     }

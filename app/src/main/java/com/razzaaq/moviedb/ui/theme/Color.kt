@@ -2,10 +2,8 @@ package com.razzaaq.moviedb.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
-
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val DuskBlue = Color(0xFF4E598C)
+val AppWhite = Color(0xFFFFFFFF)
+val ApricotCream = Color(0xFFF9C784)
+val SandyBrown = Color(0xFFFCAF58)
+val PumpkinSpice = Color(0xFFFF8C42)

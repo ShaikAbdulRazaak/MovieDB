@@ -1,40 +1,26 @@
 package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
-import com.razzaaq.moviedb.api.dto.MovieDetail
-import com.razzaaq.moviedb.ui.theme.didactGothicFontFamily
 
 @Composable
-fun Genre(genres: List<MovieDetail.Genre>, modifier: Modifier = Modifier) {
+fun Genre(genres: String, modifier: Modifier = Modifier) {
     if (genres.isNotEmpty())
         Column(modifier = modifier) {
             MovieDetailHeading(
                 title = stringResource(R.string.genre)
             )
-            FlowRow(
-                modifier = Modifier.padding(top = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                if (genres.isNotEmpty()) {
-                    val genre = when (genres.size) {
-                        1 -> genres.first().name
-                        else -> {
-                            val genresString = genres.dropLast(1).joinToString(", ") { it.name }
-                            "$genresString and ${genres.last().name}"
-                        }
-                    }
-                    Text(genre, fontFamily = didactGothicFontFamily)
-                }
-            }
+            Text(
+                text = genres,
+                style = MaterialTheme.typography.labelLarge,
+                modifier = Modifier.padding(top = 8.dp)
+            )
         }
 }
