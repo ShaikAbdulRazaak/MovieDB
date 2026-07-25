@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.ui.nowPlaying.PosterImage
@@ -29,21 +30,23 @@ fun MoviePoster(
             modifier = Modifier
                 .fillMaxWidth()
                 .align(Alignment.BottomStart)
-                .background(color = Color.Black.copy(alpha = 0.5f))
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.8f))
+                    )
+                )
+                .padding(top = 48.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
         ) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp),
+                style = MaterialTheme.typography.headlineSmall,
                 color = Color.White
             )
             if (tagline.isNotEmpty())
                 Text(
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                     text = tagline,
-                    color = Color.White,
-                    style = MaterialTheme.typography.labelMedium
+                    color = Color.White.copy(alpha = 0.8f),
+                    style = MaterialTheme.typography.labelLarge
                 )
         }
     }

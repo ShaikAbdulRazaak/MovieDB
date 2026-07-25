@@ -115,14 +115,7 @@ class DashBoardViewModel @Inject constructor(
             date.format(format)
         }.getOrElse { releaseDate }
 
-        val genresString = when (genres.size) {
-            0 -> ""
-            1 -> genres.first().name
-            else -> {
-                val genresExceptLast = genres.dropLast(1).joinToString(", ") { it.name }
-                "$genresExceptLast and ${genres.last().name}"
-            }
-        }
+        val genresList = genres.map { it.name }
 
         val hours = runtime.div(60)
         val minutes = runtime.rem(60)
@@ -150,7 +143,7 @@ class DashBoardViewModel @Inject constructor(
             revenue = if (revenue != 0) currencyFormat.format(revenue) else "",
             releaseDate = formattedReleaseDate,
             runtime = formattedTime,
-            genres = genresString,
+            genres = genresList,
             homepage = homepage,
             productionCompanies = productionCompanies.map {
                 ProductionCompanyUi(

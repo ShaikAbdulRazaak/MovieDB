@@ -10,7 +10,7 @@ data class MovieDetailUi(
     val revenue: String = "",
     val releaseDate: String = "",
     val runtime: String = "",
-    val genres: String = "",
+    val genres: List<String> = listOf(),
     val homepage: String = "",
     val productionCompanies: List<ProductionCompanyUi> = listOf()
 )

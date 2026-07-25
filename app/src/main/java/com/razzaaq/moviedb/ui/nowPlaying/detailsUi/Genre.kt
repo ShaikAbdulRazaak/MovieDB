@@ -1,7 +1,11 @@
 package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -11,16 +15,35 @@ import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
 
 @Composable
-fun Genre(genres: String, modifier: Modifier = Modifier) {
+fun Genre(genres: List<String>, modifier: Modifier = Modifier) {
     if (genres.isNotEmpty())
         Column(modifier = modifier) {
             MovieDetailHeading(
                 title = stringResource(R.string.genre)
             )
-            Text(
-                text = genres,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.padding(top = 8.dp)
-            )
+            FlowRow(
+                modifier = Modifier.padding(top = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                genres.forEach { genre ->
+                    AssistChip(
+                        onClick = { },
+                        label = {
+                            Text(
+                                text = genre,
+                                style = MaterialTheme.typography.labelMedium
+                            )
+                        },
+                        colors = AssistChipDefaults.assistChipColors(
+                            labelColor = MaterialTheme.colorScheme.secondary
+                        ),
+                        border = AssistChipDefaults.assistChipBorder(
+                            enabled = true,
+                            borderColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.5f)
+                        )
+                    )
+                }
+            }
         }
 }
