@@ -1,7 +1,7 @@
-package com.razzaaq.moviedb.api.di
+package com.razzaaq.moviedb.data.api.di
 
-import com.razzaaq.moviedb.api.ApiKeyProvider
-import com.razzaaq.moviedb.api.ApiKeyProviderImpl
+import com.razzaaq.moviedb.data.api.ApiKeyProvider
+import com.razzaaq.moviedb.data.api.ApiKeyProviderImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

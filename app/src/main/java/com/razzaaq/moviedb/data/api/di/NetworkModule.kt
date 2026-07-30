@@ -1,7 +1,7 @@
-package com.razzaaq.moviedb.api.di
+package com.razzaaq.moviedb.data.api.di
 
 import com.razzaaq.moviedb.BuildConfig
-import com.razzaaq.moviedb.api.interceptor.AuthInterceptor
+import com.razzaaq.moviedb.data.api.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

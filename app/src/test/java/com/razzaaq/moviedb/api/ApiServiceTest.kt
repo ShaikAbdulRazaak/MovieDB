@@ -1,5 +1,6 @@
 package com.razzaaq.moviedb.api
 
+import com.razzaaq.moviedb.data.api.ApiService
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType

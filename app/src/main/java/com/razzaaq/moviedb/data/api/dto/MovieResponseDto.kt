@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.api.dto
+package com.razzaaq.moviedb.data.api.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

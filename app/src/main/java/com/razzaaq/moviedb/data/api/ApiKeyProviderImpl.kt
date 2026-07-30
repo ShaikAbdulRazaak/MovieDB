@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.api
+package com.razzaaq.moviedb.data.api
 
 import com.razzaaq.moviedb.BuildConfig
 import javax.inject.Inject

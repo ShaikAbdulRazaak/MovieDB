@@ -1,6 +1,6 @@
-package com.razzaaq.moviedb.api.interceptor
+package com.razzaaq.moviedb.data.api.interceptor
 
-import com.razzaaq.moviedb.api.ApiKeyProvider
+import com.razzaaq.moviedb.data.api.ApiKeyProvider
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

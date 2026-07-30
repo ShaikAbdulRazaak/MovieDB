@@ -1,6 +1,6 @@
-package com.razzaaq.moviedb.api.di
+package com.razzaaq.moviedb.data.api.di
 
-import com.razzaaq.moviedb.api.ApiService
+import com.razzaaq.moviedb.data.api.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
