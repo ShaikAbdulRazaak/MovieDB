@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.api.dto
+package com.razzaaq.moviedb.ui.model
 
 data class UiState(
     val nowPlaying: List<MovieUi> = listOf(),

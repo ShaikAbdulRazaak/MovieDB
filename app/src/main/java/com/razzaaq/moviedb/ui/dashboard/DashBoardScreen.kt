@@ -20,8 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.MovieUi
-import com.razzaaq.moviedb.api.dto.Movies
+import com.razzaaq.moviedb.ui.model.MovieUi
+import com.razzaaq.moviedb.ui.model.Movies
 import com.razzaaq.moviedb.ui.components.BrandedHeader
 import com.razzaaq.moviedb.ui.components.MovieCard
 

@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.api.dto
+package com.razzaaq.moviedb.ui.model
 
 data class DetailsUiState(
     val movieDetail: MovieDetailUi = MovieDetailUi(),

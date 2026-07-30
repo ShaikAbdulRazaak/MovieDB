@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
-import com.razzaaq.moviedb.api.dto.ProductionCompanyUi
+import com.razzaaq.moviedb.ui.model.ProductionCompanyUi
 import com.razzaaq.moviedb.ui.components.BrandedHeader
 import com.razzaaq.moviedb.ui.dashboard.PosterImage
 

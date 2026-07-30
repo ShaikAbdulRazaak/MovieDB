@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.MovieUi
+import com.razzaaq.moviedb.ui.model.MovieUi
 import com.razzaaq.moviedb.ui.dashboard.PosterImage
 
 @Composable

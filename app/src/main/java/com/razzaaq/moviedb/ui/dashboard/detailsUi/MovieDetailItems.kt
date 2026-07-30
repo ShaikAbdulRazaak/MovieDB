@@ -17,7 +17,7 @@ import androidx.compose.material.icons.filled.Payments
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.api.dto.MovieDetailUi
+import com.razzaaq.moviedb.ui.model.MovieDetailUi
 import com.razzaaq.moviedb.ui.components.MovieInfoItem
 
 @Composable
