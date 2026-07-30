@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 object NetworkModule {
     @Provides
+    @Singleton
     fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
         else HttpLoggingInterceptor.Level.NONE
