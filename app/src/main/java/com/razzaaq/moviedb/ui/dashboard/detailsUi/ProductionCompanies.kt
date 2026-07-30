@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
+package com.razzaaq.moviedb.ui.dashboard.detailsUi
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.api.dto.ProductionCompanyUi
-import com.razzaaq.moviedb.ui.nowPlaying.PosterImage
+import com.razzaaq.moviedb.ui.components.BrandedHeader
+import com.razzaaq.moviedb.ui.dashboard.PosterImage
 
 @Composable
 fun ProductionCompanies(
@@ -33,7 +34,7 @@ fun ProductionCompanies(
             modifier = modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            MovieDetailHeading(title = stringResource(R.string.production_companies))
+            BrandedHeader(title = stringResource(R.string.production_companies))
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxWidth(),

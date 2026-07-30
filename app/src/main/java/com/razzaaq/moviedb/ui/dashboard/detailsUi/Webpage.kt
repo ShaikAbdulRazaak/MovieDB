@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
+package com.razzaaq.moviedb.ui.dashboard.detailsUi
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,13 +15,14 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
+import com.razzaaq.moviedb.ui.components.BrandedHeader
 
 @Composable
 fun Webpage(homepage: String, modifier: Modifier = Modifier) {
     if (homepage.isNotEmpty()) {
         val uriHandler = LocalUriHandler.current
         Column(modifier = modifier) {
-            MovieDetailHeading(stringResource(R.string.homepage))
+            BrandedHeader(stringResource(R.string.homepage))
             OutlinedButton(
                 onClick = { uriHandler.openUri(homepage) },
                 modifier = Modifier.padding(top = 4.dp)

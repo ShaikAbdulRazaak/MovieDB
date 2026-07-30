@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
+package com.razzaaq.moviedb.ui.dashboard.detailsUi
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,12 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.R
+import com.razzaaq.moviedb.ui.components.BrandedHeader
 
 @Composable
 fun Genre(genres: List<String>, modifier: Modifier = Modifier) {
     if (genres.isNotEmpty())
         Column(modifier = modifier) {
-            MovieDetailHeading(
+            BrandedHeader(
                 title = stringResource(R.string.genre)
             )
             FlowRow(

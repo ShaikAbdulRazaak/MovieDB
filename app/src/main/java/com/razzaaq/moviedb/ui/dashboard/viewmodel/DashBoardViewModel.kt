@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.ui.nowPlaying.viewmodel
+package com.razzaaq.moviedb.ui.dashboard.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

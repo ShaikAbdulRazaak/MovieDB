@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
+package com.razzaaq.moviedb.ui.dashboard.detailsUi
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,10 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccessTime
+import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.Payments
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.razzaaq.moviedb.api.dto.MovieDetailUi
+import com.razzaaq.moviedb.ui.components.MovieInfoItem
 
 @Composable
 fun MovieDetailItems(
@@ -67,9 +73,25 @@ private fun MovieDetailSummary(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier.fillMaxWidth()
     ) {
-        RunTime(runtime = movieDetail.runtime)
-        ReleaseDate(releaseDate = movieDetail.releaseDate)
-        Revenue(revenue = movieDetail.revenue)
-        Budget(budget = movieDetail.budget)
+        MovieInfoItem(
+            title = "Duration",
+            value = movieDetail.runtime,
+            icon = Icons.Default.AccessTime
+        )
+        MovieInfoItem(
+            title = "Release Date",
+            value = movieDetail.releaseDate,
+            icon = Icons.Default.CalendarMonth
+        )
+        MovieInfoItem(
+            title = "Revenue",
+            value = movieDetail.revenue,
+            icon = Icons.Default.AttachMoney
+        )
+        MovieInfoItem(
+            title = "Budget",
+            value = movieDetail.budget,
+            icon = Icons.Default.Payments
+        )
     }
 }

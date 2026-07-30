@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.ui.nowPlaying.detailsUi
+package com.razzaaq.moviedb.ui.dashboard.detailsUi
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.razzaaq.moviedb.ui.nowPlaying.PosterImage
+import com.razzaaq.moviedb.ui.dashboard.PosterImage
 
 @Composable
 fun MoviePoster(

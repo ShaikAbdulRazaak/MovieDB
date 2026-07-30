@@ -15,11 +15,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
-import com.razzaaq.moviedb.ui.nowPlaying.DashBoardScreen
-import com.razzaaq.moviedb.ui.nowPlaying.Dashboard
-import com.razzaaq.moviedb.ui.nowPlaying.Detail
-import com.razzaaq.moviedb.ui.nowPlaying.detailsUi.MovieDetailScreen
-import com.razzaaq.moviedb.ui.nowPlaying.viewmodel.DashBoardViewModel
+import com.razzaaq.moviedb.ui.dashboard.DashBoardScreen
+import com.razzaaq.moviedb.ui.dashboard.Dashboard
+import com.razzaaq.moviedb.ui.dashboard.Detail
+import com.razzaaq.moviedb.ui.dashboard.detailsUi.MovieDetailScreen
+import com.razzaaq.moviedb.ui.dashboard.viewmodel.DashBoardViewModel
 import com.razzaaq.moviedb.ui.theme.MovieDBTheme
 import dagger.hilt.android.AndroidEntryPoint
 
