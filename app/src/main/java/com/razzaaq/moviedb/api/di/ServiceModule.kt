@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.create
+import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -16,6 +17,7 @@ object ServiceModule {
     const val BASE_URL = "https://api.themoviedb.org/3/"
 
     @Provides
+    @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         converterFactory: Converter.Factory
@@ -26,5 +28,6 @@ object ServiceModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create<ApiService>()
 }

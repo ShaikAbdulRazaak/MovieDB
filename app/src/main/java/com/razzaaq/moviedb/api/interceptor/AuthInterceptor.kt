@@ -1,16 +1,16 @@
 package com.razzaaq.moviedb.api.interceptor
 
-import com.razzaaq.moviedb.BuildConfig
+import com.razzaaq.moviedb.api.di.ApiKeyProvider
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-class AuthInterceptor @Inject constructor() : Interceptor {
+class AuthInterceptor @Inject constructor(val apiKeyProvider: ApiKeyProvider) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response =
         chain.proceed(
             request = chain.request()
                 .newBuilder()
-                .addHeader("Authorization", "Bearer ${BuildConfig.apiKey}")
+                .addHeader("Authorization", "Bearer ${apiKeyProvider.apiKey()}")
                 .build()
         )
 }
