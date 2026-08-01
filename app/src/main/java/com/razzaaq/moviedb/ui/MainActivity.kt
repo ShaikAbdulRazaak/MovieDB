@@ -8,11 +8,11 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.razzaaq.moviedb.ui.dashboard.DashBoardScreen
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    val dashBoardViewModel by viewModels<DashBoardViewModel>()
+    private val dashBoardViewModel by viewModels<DashBoardViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -44,12 +44,10 @@ class MainActivity : ComponentActivity() {
                         entryProvider = { key ->
                             when (key) {
                                 is Dashboard -> NavEntry(key = key) {
-                                    val uiState by dashBoardViewModel.uiState.collectAsState()
+                                    val uiState by dashBoardViewModel.uiState.collectAsStateWithLifecycle()
                                     DashBoardScreen(
-                                        nowPlayingMovies = uiState.nowPlaying,
-                                        topRatedMovies = uiState.topRated,
-                                        upcomingMovies = uiState.upComing,
-                                        popularMovies = uiState.popular,
+                                        uiState = uiState,
+                                        onRetry = { dashBoardViewModel.fetchDashboardData() },
                                         onCardClick = {
                                             backStack.add(Detail(it))
                                             dashBoardViewModel.getMovieDetail(it)
@@ -58,9 +56,10 @@ class MainActivity : ComponentActivity() {
                                 }
 
                                 is Detail -> NavEntry(key = key) {
-                                    val detailsUiState by dashBoardViewModel.detailsUiState.collectAsState()
+                                    val detailsUiState by dashBoardViewModel.detailsUiState.collectAsStateWithLifecycle()
                                     MovieDetailScreen(
-                                        movieDetail = detailsUiState.movieDetail
+                                        detailsUiState = detailsUiState,
+                                        onRetry = { dashBoardViewModel.getMovieDetail(key.movieId) }
                                     )
                                 }
 

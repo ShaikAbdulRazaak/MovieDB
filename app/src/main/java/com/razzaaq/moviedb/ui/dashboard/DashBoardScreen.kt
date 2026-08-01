@@ -20,40 +20,60 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.razzaaq.moviedb.ui.components.BrandedHeader
+import com.razzaaq.moviedb.ui.components.ErrorView
+import com.razzaaq.moviedb.ui.components.LoadingView
+import com.razzaaq.moviedb.ui.components.MovieCard
+import com.razzaaq.moviedb.ui.model.DataState
 import com.razzaaq.moviedb.ui.model.MovieUi
 import com.razzaaq.moviedb.ui.model.Movies
-import com.razzaaq.moviedb.ui.components.BrandedHeader
-import com.razzaaq.moviedb.ui.components.MovieCard
+import com.razzaaq.moviedb.ui.model.UiState
 
 @Composable
 fun DashBoardScreen(
-    modifier: Modifier = Modifier,
-    nowPlayingMovies: List<MovieUi>,
-    popularMovies: List<MovieUi>,
-    topRatedMovies: List<MovieUi>,
-    upcomingMovies: List<MovieUi>,
-    onCardClick: (movieId: Int) -> Unit
+    uiState: DataState<UiState>,
+    onRetry: () -> Unit,
+    onCardClick: (movieId: Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(modifier = modifier.fillMaxSize()) {
+        when (uiState) {
+            is DataState.Loading -> LoadingView()
+            is DataState.Error -> ErrorView(message = uiState.message, onRetry = onRetry)
+            is DataState.Success -> DashBoardContent(
+                uiState = uiState.data,
+                onCardClick = onCardClick
+            )
+            is DataState.Idle -> Unit
+        }
+    }
+}
+
+@Composable
+private fun DashBoardContent(
+    uiState: UiState,
+    onCardClick: (Int) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
-        modifier
+        Modifier
             .verticalScroll(scrollState)
             .background(MaterialTheme.colorScheme.background)
     ) {
-        if (nowPlayingMovies.isNotEmpty()) {
+        if (uiState.nowPlaying.isNotEmpty()) {
             HeroSection(
-                movie = nowPlayingMovies.first(),
+                movie = uiState.nowPlaying.first(),
                 onCardClick = onCardClick
             )
         }
         Section(
             title = Movies.NOW_PLAYING.value,
-            movies = nowPlayingMovies,
+            movies = uiState.nowPlaying,
             onCardClick = onCardClick
         )
-        Section(title = Movies.UPCOMING.value, movies = upcomingMovies, onCardClick = onCardClick)
-        Section(title = Movies.TOP_RATED.value, movies = topRatedMovies, onCardClick = onCardClick)
-        Section(title = Movies.POPULAR.value, movies = popularMovies, onCardClick = onCardClick)
+        Section(title = Movies.UPCOMING.value, movies = uiState.upComing, onCardClick = onCardClick)
+        Section(title = Movies.TOP_RATED.value, movies = uiState.topRated, onCardClick = onCardClick)
+        Section(title = Movies.POPULAR.value, movies = uiState.popular, onCardClick = onCardClick)
     }
 }
 
@@ -80,7 +100,7 @@ private fun HeroSection(
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .align(Alignment.BottomStart)
-                .padding(start = 32.dp, bottom = 48.dp) // Adjusted for MovieCard internal padding
+                .padding(start = 32.dp, bottom = 48.dp)
         )
     }
 }
