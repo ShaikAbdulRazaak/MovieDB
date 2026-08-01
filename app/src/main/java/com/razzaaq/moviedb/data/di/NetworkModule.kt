@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.data.api.di
+package com.razzaaq.moviedb.data.di
 
 import com.razzaaq.moviedb.BuildConfig
 import com.razzaaq.moviedb.data.api.interceptor.AuthInterceptor

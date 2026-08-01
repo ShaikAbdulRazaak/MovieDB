@@ -1,4 +1,4 @@
-package com.razzaaq.moviedb.data.api.di
+package com.razzaaq.moviedb.data.di
 
 import dagger.Module
 import dagger.Provides

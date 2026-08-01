@@ -1,8 +1,8 @@
 package com.razzaaq.moviedb.data.api
 
-import com.razzaaq.moviedb.data.api.dto.ConfigurationDetail
-import com.razzaaq.moviedb.data.api.dto.MovieDetail
-import com.razzaaq.moviedb.data.api.dto.MovieResponseDto
+import com.razzaaq.moviedb.data.dto.ConfigurationDetail
+import com.razzaaq.moviedb.data.dto.MovieDetail
+import com.razzaaq.moviedb.data.dto.MovieResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 

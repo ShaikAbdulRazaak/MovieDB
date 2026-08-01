@@ -5,13 +5,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.razzaaq.moviedb.R
 import com.razzaaq.moviedb.data.api.ApiService
-import com.razzaaq.moviedb.data.api.dto.ConfigurationDetail
+import com.razzaaq.moviedb.data.dto.ConfigurationDetail
 import com.razzaaq.moviedb.ui.model.DetailsUiState
 import com.razzaaq.moviedb.ui.model.Image
-import com.razzaaq.moviedb.data.api.dto.MovieDetail
+import com.razzaaq.moviedb.data.dto.MovieDetail
 import com.razzaaq.moviedb.ui.model.MovieDetailUi
-import com.razzaaq.moviedb.data.api.dto.MovieResponseDto
-import com.razzaaq.moviedb.data.api.dto.MovieResultDto
+import com.razzaaq.moviedb.data.dto.MovieResponseDto
+import com.razzaaq.moviedb.data.dto.MovieResultDto
 import com.razzaaq.moviedb.ui.model.MovieUi
 import com.razzaaq.moviedb.ui.model.ProductionCompanyUi
 import com.razzaaq.moviedb.ui.model.UiState
