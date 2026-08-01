@@ -10,7 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavEntry
@@ -33,7 +34,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieDBTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val backStack = remember { mutableStateListOf<Any>(Dashboard) }
+                    val backStack = rememberSaveable(
+                        saver = listSaver(
+                            save = { it.toList() },
+                            restore = { mutableStateListOf(*it.toTypedArray()) }
+                        )
+                    ) {
+                        mutableStateListOf<Any>(Dashboard)
+                    }
 
                     NavDisplay(
                         backStack = backStack,
